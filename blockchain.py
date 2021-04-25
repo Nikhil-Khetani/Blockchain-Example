@@ -1,7 +1,6 @@
 from hashlib import sha256
 from time import ctime
 
-print(sha256('hello'.encode()).hexdigest())
 
 class Block(object):
     def __init__(self, index, parent_hash, timestamp, transactions):
@@ -13,6 +12,7 @@ class Block(object):
         self.transactions = transactions
 
     def hash(self):
+        print("Mining... Index: {}, Nonce: {}".format(self.index,self.nonce))
         return sha256((str(self.index)+str(self.parent_hash)+str(self.timestamp)+str(self.transactions)+str(self.nonce)).encode()).hexdigest()
 
     def set_hash(self):
@@ -27,7 +27,7 @@ class Blockchain(object):
     def __init__(self):
         super().__init__()
         
-        self.difficulty = 4
+        self.difficulty = 3
         self.unconfirmed_transactions = []
         self.chain = []
         self.createGenesisBlock()
